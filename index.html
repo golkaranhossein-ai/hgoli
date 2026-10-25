@@ -605,3 +605,116 @@ window.addEventListener('popstate',()=>{goBack();});
 </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ساعت و تقویم من</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: white;
+  font-family: Tahoma, Arial, sans-serif;
+}
+
+.clock-card {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 280px;
+  padding: 20px;
+  border: 1px solid #292638;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #15131d, #08080b);
+  box-shadow: 0 10px 35px #0008;
+  text-align: right;
+}
+
+.label {
+  color: #aaa4ba;
+  font-size: 12px;
+}
+
+.time {
+  direction: ltr;
+  text-align: right;
+  font-size: 35px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin: 12px 0;
+  color: #c4a7ff;
+  font-variant-numeric: tabular-nums;
+}
+
+.date {
+  font-size: 15px;
+  line-height: 2;
+  color: #fff;
+}
+
+.weekday {
+  color: #a99bc9;
+  font-size: 13px;
+  margin-top: 5px;
+}
+
+@media (max-width: 400px) {
+  .clock-card {
+    width: calc(100% - 30px);
+    right: 15px;
+    top: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="clock-card">
+  <div class="label">ساعت محلی</div>
+  <div class="time" id="clock">۰۰:۰۰:۰۰</div>
+
+  <div class="label">تقویم شمسی</div>
+  <div class="date" id="date">در حال بارگذاری...</div>
+  <div class="weekday" id="weekday"></div>
+</div>
+
+<script>
+function updateClock() {
+  const now = new Date();
+
+  document.getElementById("clock").textContent =
+    new Intl.DateTimeFormat("fa-IR", {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).format(now);
+
+  document.getElementById("date").textContent =
+    new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    }).format(now);
+
+  document.getElementById("weekday").textContent =
+    new Intl.DateTimeFormat("fa-IR-u-ca-persian", {
+      weekday: "long"
+    }).format(now);
+}
+
+updateClock();
+setInterval(updateClock, 1000);
+</script>
+
+</body>
+</html>
